@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:paddingTop="5dp" >
+
+    <ImageView
+        android:background="@drawable/shape_box_border_top"
+        android:layout_width="37dp"
+        android:layout_height="55dp" />
+
+    <ImageView
+        android:id="@+id/grid_image"
+        android:paddingLeft="1dp"
+        android:layout_width="36dp"
+        android:layout_height="55dp">
+    </ImageView>
+
+    <TextView
+        android:id="@+id/grid_text"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:layout_marginTop="9dp"
+        android:layout_marginLeft="6dp"
+        android:layout_toRightOf="@id/grid_image"
+        android:textSize="13sp"
+        android:textColor="@color/stickylistrowtext">
+    </TextView>
+
+    <TextView
+        android:id="@+id/grid_text2"
+        android:layout_below="@id/grid_text"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:layout_toRightOf="@id/grid_image"
+        android:layout_marginLeft="7dp"
+        android:textColor="@color/stickylistrowepisode"
+        android:textSize="13sp" >
+    </TextView>
+
+</RelativeLayout>

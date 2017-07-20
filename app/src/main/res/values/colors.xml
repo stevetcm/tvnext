@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#ff3e3e3e</color>
+    <color name="colorPrimaryDark">#ff343434</color>
+    <color name="textColorPrimary">#ffffffff</color>
+    <color name="textColorSecondary">#ffffffff</color>
+    <color name="windowBackground">#ff393939</color>
+    <color name="navigationBarColor">#ff000000</color>
+    <color name="colorAccent">#ff97b2c5</color>
+    <color name="cardColorBackground">#ff464646</color>
+    <color name="stickylistheader">#ffd2d2d2</color>
+    <color name="stickylistrowtext">#ffd9d9d9</color>
+    <color name="stickylistrowepisode">#ffdcdcdc</color>
+    <color name="stickylistrowview">#ff9b9b9b</color>
+    <!-- light theme textColorSecondary #ff808080 -->
+    <!-- dark theme stickylistheader #ffd2d2d2 -->
+    <!-- dark theme stickylistrow text #ffd5d5d5 -->
+    <!-- dark theme stickylistrow episode #ffe1e1e1 -->
+    <!-- dark theme stickylistrow view #ff9b9b9b -->
+
+    <color name="black">#ff000000</color>
+    <color name="white">#ffffffff</color>
+    <color name="gray">#ffafafaf</color>
+</resources>
