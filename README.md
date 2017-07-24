@@ -16,3 +16,8 @@ Screenshots
 <img src="https://github.com/stevetcm/tvnext/blob/master/screenshots/2017-07-18%2017.55.47.png" width="310">　　<img src="https://github.com/stevetcm/tvnext/blob/master/screenshots/2017-07-18%2017.56.23.png" width="310">
 
 <img src="https://github.com/stevetcm/tvnext/blob/master/screenshots/2017-07-18%2017.56.36.png" width="310">　　<img src="https://github.com/stevetcm/tvnext/blob/master/screenshots/2017-07-18%2017.56.47.png" width="310">
+
+Download APK
+-------
+This project is still in development but you can
+download the apk [here (2.9MB)](https://github.com/stevetcm/tvnext/raw/master/TvNext.v.0.9.0.apk)
