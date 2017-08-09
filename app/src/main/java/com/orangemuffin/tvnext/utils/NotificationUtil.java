@@ -16,6 +16,8 @@ import com.orangemuffin.tvnext.activities.MainActivity;
 import com.orangemuffin.tvnext.models.Episode;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 
 /* Created by OrangeMuffin on 8/7/2017 */
@@ -32,7 +34,7 @@ public class NotificationUtil {
 
         if (episodeList.size() == 1) {
             String title = episode.getSeriesName();
-            String text = StringFormatUtil.notificationString(seasonNum, episodeNum) + " - " + episode.getName();
+            String text = StringFormatUtil.numDisplay(seasonNum, episodeNum) + " - " + episode.getName();
 
             //get internal location: data/Series
             ContextWrapper cw = new ContextWrapper(context);
@@ -49,11 +51,11 @@ public class NotificationUtil {
                     .setVibrate(new long[]{0l}); //endless effort to disable vibrate;
         } else {
             String title = String.valueOf(episodeList.size()) + "New Episodes";
-            String text = seriesName + " - " + StringFormatUtil.notificationString(seasonNum, episodeNum);
+            String text = seriesName + " - " + StringFormatUtil.numDisplay(seasonNum, episodeNum);
 
             for (int i = 1; i < episodeList.size(); i++) {
                 Episode temp = episodeList.get(i);
-                text = text + "\n" + temp.getSeriesName() + " - " + StringFormatUtil.notificationString(temp.getSeasonNum(), temp.getEpisodeNum());
+                text = text + "\n" + temp.getSeriesName() + " - " + StringFormatUtil.numDisplay(temp.getSeasonNum(), temp.getEpisodeNum());
             }
 
             mBuilder.setSmallIcon(R.drawable.ic_transparent_white)

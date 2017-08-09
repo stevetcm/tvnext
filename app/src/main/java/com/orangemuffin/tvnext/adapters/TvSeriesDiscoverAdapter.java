@@ -94,13 +94,6 @@ public class TvSeriesDiscoverAdapter extends RecyclerView.Adapter<TvSeriesDiscov
         } else {
             Picasso.with(context).load(R.drawable.placeholder_banner).noFade().fit().centerCrop().into(holder.banner);
         }
-
-        holder.banner.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(context, tvSeries.getBanner(), Toast.LENGTH_SHORT).show();
-            }
-        });
     }
 
     @Override
@@ -131,6 +124,20 @@ public class TvSeriesDiscoverAdapter extends RecyclerView.Adapter<TvSeriesDiscov
             SharedPreferences sp_data = context.getSharedPreferences("PHONEDATA", context.MODE_PRIVATE);
             int width = sp_data.getInt("PHONE_RES", 1080);
             banner.getLayoutParams().height = (int) (((width - 2 * (MeasurementUtil.dpToPixel(4))) / 758) * 140);
+
+            banner.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    final int position = getAdapterPosition();
+                    final TvSeries tvSeries = data.get(position);
+
+                    AlertDialog.Builder dialog = new AlertDialog.Builder(context);
+                    dialog.setTitle(tvSeries.getName());
+                    dialog.setMessage(tvSeries.getOverview());
+                    dialog.setPositiveButton("Close", null);
+                    dialog.show();
+                }
+            });
 
             overflow_add.setOnClickListener(new View.OnClickListener() {
                 @Override

@@ -74,15 +74,15 @@ public class FragmentOverview extends Fragment {
             TvSeries result = new TvSeries();
 
             try {
-                    ContextWrapper cw = new ContextWrapper(context);
-                    final File directory = cw.getDir("Series", Context.MODE_PRIVATE);
-                    File mypath = new File(directory, strings[0] + ".ser");
+                ContextWrapper cw = new ContextWrapper(context);
+                final File directory = cw.getDir("Series", Context.MODE_PRIVATE);
+                File mypath = new File(directory, strings[0] + ".ser");
 
-                    FileInputStream fis = new FileInputStream(mypath);
-                    FSTObjectInput in = new FSTObjectInput(fis);
-                    result = (TvSeries) in.readObject(TvSeries.class);
-                    in.close();
-                } catch (Exception e) { }
+                FileInputStream fis = new FileInputStream(mypath);
+                FSTObjectInput in = new FSTObjectInput(fis);
+                result = (TvSeries) in.readObject(TvSeries.class);
+                in.close();
+            } catch (Exception e) { }
 
             for (int i = 0; i < 9; i++) {
                 Overview overview = new Overview();

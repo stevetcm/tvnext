@@ -29,7 +29,7 @@ public class StringFormatUtil {
         }
     }
 
-    public static String notificationString(String seasonNum, String episodeNum) {
+    public static String numDisplay(String seasonNum, String episodeNum) {
         String s = prefixNumber(Integer.parseInt(seasonNum));
         String e = prefixNumber(Integer.parseInt(episodeNum));
         return "S" + s + "E" + e;

@@ -1,5 +1,6 @@
 package com.orangemuffin.tvnext.adapters;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.view.LayoutInflater;
@@ -8,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.orangemuffin.tvnext.R;
 import com.orangemuffin.tvnext.activities.EpisodesActivity;
@@ -170,7 +170,12 @@ public class TvSeriesEpisodesAdapter extends BaseAdapter {
         rootView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(context, String.valueOf(seasons.get(1).getWatchedIndex().size()), Toast.LENGTH_LONG).show();
+                AlertDialog.Builder dialog = new AlertDialog.Builder(context);
+                dialog.setTitle(StringFormatUtil.numDisplay(episode.getSeasonNum(), episode.getEpisodeNum())
+                        + " - " + episode.getName());
+                dialog.setMessage(episode.getOverview());
+                dialog.setPositiveButton("Close", null);
+                dialog.show();
             }
         });
 

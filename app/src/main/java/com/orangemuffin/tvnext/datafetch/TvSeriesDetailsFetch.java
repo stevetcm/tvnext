@@ -1,8 +1,6 @@
 package com.orangemuffin.tvnext.datafetch;
 
-import com.orangemuffin.tvnext.fanarttv.FanartTvImagesService;
 import com.orangemuffin.tvnext.models.Actor;
-import com.orangemuffin.tvnext.models.Season;
 import com.orangemuffin.tvnext.models.TvSeries;
 import com.orangemuffin.tvnext.thetvdb.TheTvdbSeriesService;
 import com.orangemuffin.tvnext.tmdb.TmdbSeriesService;

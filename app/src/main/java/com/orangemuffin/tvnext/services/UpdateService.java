@@ -10,6 +10,7 @@ import com.orangemuffin.tvnext.datafetch.TvSeriesDetailsFetch;
 import com.orangemuffin.tvnext.models.TvSeries;
 import com.orangemuffin.tvnext.trakt.TraktSeriesService;
 import com.orangemuffin.tvnext.utils.LocalDataUtil;
+import com.orangemuffin.tvnext.utils.NotificationUtil;
 
 import java.io.File;
 import java.io.FileInputStream;

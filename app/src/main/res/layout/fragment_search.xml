@@ -18,7 +18,7 @@
 
     <TextView
         android:id="@+id/footer_credit"
-        android:text="Images are obtained from fanart.tv"
+        android:text="@string/img_src"
         android:gravity="bottom|end"
         android:layout_marginRight="7dp"
         android:layout_marginTop="1dp"
