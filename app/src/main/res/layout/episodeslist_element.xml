@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/episodeslist_name"
+        android:layout_width="310dp"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:textSize="18dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"/>
+
+    <TextView
+        android:id="@+id/episodeslist_date"
+        android:layout_width="310dp"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/episodeslist_name"
+        android:layout_below="@id/episodeslist_name"
+        android:textColor="@color/white"
+        android:textSize="12dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="10dp"/>
+
+    <ImageView
+        android:id="@+id/overflow_kite"
+        android:layout_width="26dp"
+        android:layout_height="26dp"
+        android:layout_marginRight="10dp"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:tag="1"
+        android:clickable="true"
+        android:background="@drawable/ic_kite_white_off"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/stickylistrowview"
+        android:layout_below="@+id/episodeslist_date"/>
+</RelativeLayout>

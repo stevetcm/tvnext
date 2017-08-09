@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/shape_border">
+
+    <TextView
+        android:id="@+id/seasonslist_item"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:layout_margin="10dp"/>
+
+    <TextView
+        android:id="@+id/seasonslist_watched"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="end"
+        android:textColor="@color/white"
+        android:text="10/10"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="26dp"/>
+
+    <ImageView
+        android:id="@+id/overflow_more"
+        android:layout_width="26dp"
+        android:layout_height="39dp"
+        android:padding="4dp"
+        android:gravity="end"
+        android:layout_alignParentRight="true"
+        android:src="@drawable/ic_more_vert_white" />
+</RelativeLayout>
