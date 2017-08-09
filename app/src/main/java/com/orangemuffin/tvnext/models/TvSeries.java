@@ -28,6 +28,7 @@ public class TvSeries implements Serializable {
     private String TraktRating;
 
     private List<Integer> watchedIndex = new ArrayList<>();
+    private int episodesLeft = 0;
 
     public String getName() {
         return name;
@@ -141,7 +142,40 @@ public class TvSeries implements Serializable {
         TraktRating = traktRating;
     }
 
-    public String getNearestEpisode() {
+    public void setEpisodesLeft() {
+        for (int i = seasons.size() - 1; i >= 0; i--) {
+            Season season = seasons.get(i);
+            if (!season.getSeasonNum().equals("0")) {
+                List<Episode> episodes = season.getEpisodes();
+                for (int j = episodes.size() - 1; j >= 0; j--) {
+                    Episode episode = episodes.get(j);
+                    if (episode.getDue() != null && episode.getDue() <= 0) {
+                        episodesLeft = episode.getAbsoluteNum() - watchedIndex.size();
+                        return;
+                    }
+                }
+            }
+        }
+    }
+
+    public int getEpisodesLeft() {
+        return episodesLeft;
+    }
+
+    public String getNearestString() {
+        Episode episode = getNearestEpisode();
+        if (episode != null) {
+            String episodeString = StringFormatUtil.numDisplay(episode.getSeasonNum(), episode.getEpisodeNum());
+            episodeString = episodeString + " - " + episode.getName() + "\n";
+
+            return episodeString + "Airs: " + StringFormatUtil.getDueDate(episode.getDue()) +
+                    ", " + DateAndTimeUtil.convertDate("EEE, dd MMM yyyy", episode.getAirdate());
+        }
+
+        return "No Upcoming Episode";
+    }
+
+    public Episode getNearestEpisode() {
         for (int i = seasons.size()-1; i >= 0; i--) {
             Season season = seasons.get(i);
             if (!season.getSeasonNum().equals("0")) {
@@ -149,20 +183,13 @@ public class TvSeries implements Serializable {
                 for (int j = 0; j < episodes.size(); j++) {
                     Episode episode = episodes.get(j);
                     if (episode.getDue() != null && episode.getDue() >= 0) {
-                        String episodeString = "S" + StringFormatUtil.prefixNumber(Integer.parseInt(episode.getSeasonNum())) +
-                            "E" + StringFormatUtil.prefixNumber(Integer.parseInt(episode.getEpisodeNum()));
-                        episodeString = episodeString + " - " + episode.getName() + "\n";
-
-                        episodeString = episodeString + "Airs: " + StringFormatUtil.getDueDate(episode.getDue()) +
-                            ", " + DateAndTimeUtil.convertDate("EEE, dd MMM yyyy", episode.getAirdate());
-
-                        return episodeString;
+                        return episode;
                     }
                 }
             }
         }
 
-        return "No Upcoming Episode";
+        return null;
     }
 
     public Episode getCurrentEpisode(int offset) {
@@ -195,8 +222,7 @@ public class TvSeries implements Serializable {
                 status = StringFormatUtil.getDueDate(episode.getDue());
             }
 
-            String episodeString = "S" + StringFormatUtil.prefixNumber(Integer.parseInt(episode.getSeasonNum())) +
-                    "E" + StringFormatUtil.prefixNumber(Integer.parseInt(episode.getEpisodeNum()));
+            String episodeString = StringFormatUtil.numDisplay(episode.getSeasonNum(), episode.getEpisodeNum());
 
             return episodeString + " (" + status + ")";
         }
@@ -233,6 +259,7 @@ public class TvSeries implements Serializable {
             Episode episode = getCurrentEpisode(0);
             if (episode != null) {
                 if (episode.getDue() != null && episode.getDue() <= 0) {
+                    episodesLeft--;
                     setWatched(episode.getSeasonNum(), episode.getAbsoluteNum());
                 }
             }
@@ -266,6 +293,7 @@ public class TvSeries implements Serializable {
                 watchedIndex.remove(new Integer(absoluteNum));
             } else if (absoluteNum == -1) {
                 Episode episode = getCurrentEpisode(-1);
+                episodesLeft++;
                 setUnwatched(episode.getSeasonNum(), episode.getAbsoluteNum());
             } else if (absoluteNum == -2) {
                 for (Season season : seasons) {

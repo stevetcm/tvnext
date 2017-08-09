@@ -145,17 +145,17 @@ public class TvSeriesEpisodesAdapter extends BaseAdapter {
             holder.episodeDate.setTextColor(Color.parseColor("#9B9B9B"));
         } else {
             if (tvSeries.getWatchedIndex().contains(episode.getAbsoluteNum())) {
-                holder.overflow_kite.setBackgroundResource(R.drawable.ic_kite_white_on);
+                holder.overflow_kite.setImageResource(R.drawable.ic_kite_white_on);
                 holder.overflow_kite.setTag(2);
             } else {
-                holder.overflow_kite.setBackgroundResource(R.drawable.ic_kite_white_off);
+                holder.overflow_kite.setImageResource(R.drawable.ic_kite_white_off);
                 holder.overflow_kite.setTag(1);
             }
             holder.episodeName.setTextColor(Color.parseColor("#FFFFFF"));
             holder.episodeDate.setTextColor(Color.parseColor("#FFFFFF"));
         }
 
-        String epiName = "#" + StringFormatUtil.prefixNumber(i+1) + " - " + episode.getName();
+        String epiName = "#" + StringFormatUtil.prefixNumber(String.valueOf(i+1)) + " - " + episode.getName();
 
         holder.episodeName.setText(epiName);
 
@@ -183,11 +183,11 @@ public class TvSeriesEpisodesAdapter extends BaseAdapter {
             @Override
             public void onClick(View view) {
                 if (Integer.parseInt(holder.overflow_kite.getTag().toString()) == 1) {
-                    holder.overflow_kite.setBackgroundResource(R.drawable.ic_kite_white_on);
+                    holder.overflow_kite.setImageResource(R.drawable.ic_kite_white_on);
                     holder.overflow_kite.setTag(2);
                     tvSeries.setWatched(episode.getSeasonNum(), episode.getAbsoluteNum());
                 } else {
-                    holder.overflow_kite.setBackgroundResource(R.drawable.ic_kite_white_off);
+                    holder.overflow_kite.setImageResource(R.drawable.ic_kite_white_off);
                     holder.overflow_kite.setTag(1);
                     tvSeries.setUnwatched(episode.getSeasonNum(), episode.getAbsoluteNum());
                 }

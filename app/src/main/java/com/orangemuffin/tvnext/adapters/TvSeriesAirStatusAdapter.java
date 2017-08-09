@@ -124,9 +124,7 @@ public class TvSeriesAirStatusAdapter extends BaseAdapter implements StickyListH
 
         holder.name.setText(episode.getSeriesName());
 
-        String seasonNum = "S" + StringFormatUtil.prefixNumber(Integer.parseInt(episode.getSeasonNum()));
-        String episodeNum = "E" + StringFormatUtil.prefixNumber(Integer.parseInt(episode.getEpisodeNum()));
-        String episode_text = seasonNum + episodeNum + " - " + episode.getName();
+        String episode_text = StringFormatUtil.numDisplay(episode.getSeasonNum(), episode.getEpisodeNum()) + " - " + episode.getName();
         holder.episode.setText(episode_text);
 
         return view;

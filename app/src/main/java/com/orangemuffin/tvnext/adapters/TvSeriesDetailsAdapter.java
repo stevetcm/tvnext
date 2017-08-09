@@ -89,6 +89,18 @@ public class TvSeriesDetailsAdapter extends RecyclerView.Adapter<TvSeriesDetails
         holder.title.setText(tvSeries.getName());
         holder.episode.setText(tvSeries.getCurrentString());
 
+        int current = tvSeries.getEpisodesLeft();
+        if (current >= 0 && current < 10) {
+            MeasurementUtil.setPadding(holder.episodesLeft, 0, 2, 6, 0);
+        } else if (current >= 10 && current < 100) {
+            MeasurementUtil.setPadding(holder.episodesLeft, 0, 2, 4, 0);
+        } else if (current >= 100 && current < 1000) {
+            MeasurementUtil.setPadding(holder.episodesLeft, 0, 2, 2, 0);
+        }
+
+        holder.episodesLeft.setText(String.valueOf(current));
+
+
         ContextWrapper cw = new ContextWrapper(context);
         File directory = cw.getDir("Series", Context.MODE_PRIVATE);
         File mypath_img = new File(directory, tvSeries.getId() + ".jpg");
@@ -119,7 +131,7 @@ public class TvSeriesDetailsAdapter extends RecyclerView.Adapter<TvSeriesDetails
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView title, episode;
+        TextView title, episode, episodesLeft;
         ImageView poster, overflow_more;
 
         public ViewHolder(View view) {
@@ -127,6 +139,7 @@ public class TvSeriesDetailsAdapter extends RecyclerView.Adapter<TvSeriesDetails
 
             title = (TextView) view.findViewById(R.id.title);
             episode = (TextView) view.findViewById(R.id.episode);
+            episodesLeft = (TextView) view.findViewById(R.id.episodesleft);
             poster = (ImageView) view.findViewById(R.id.poster);
             overflow_more = (ImageView) view.findViewById(R.id.overflow_more);
 

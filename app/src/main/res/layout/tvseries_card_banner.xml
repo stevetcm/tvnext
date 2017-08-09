@@ -22,7 +22,7 @@
 
         <TextView
             android:id="@+id/title"
-            android:layout_width="match_parent"
+            android:layout_width="320dp"
             android:layout_height="wrap_content"
             android:layout_below="@id/banner"
             android:textColor="@color/textColorSecondary"
@@ -41,16 +41,18 @@
 
         <ImageView
             android:id="@+id/overflow_kite"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_width="30dp"
+            android:layout_height="36dp"
+            android:paddingTop="9dp"
+            android:paddingBottom="9dp"
+            android:paddingLeft="6dp"
+            android:paddingRight="6dp"
+            android:scaleType="centerCrop"
+            android:cropToPadding="true"
             android:layout_alignParentRight="true"
-            android:layout_marginTop="7dp"
-            android:layout_marginRight="5dp"
             android:layout_below="@id/banner"
-            android:tag="1"
-            android:clickable="true"
-            android:padding="2dp"
-            android:background="@drawable/ic_add_white"/>
+            android:src="@drawable/ic_add_white" />
+
     </RelativeLayout>
 
 </android.support.v7.widget.CardView>

@@ -13,6 +13,10 @@ public class MeasurementUtil {
         return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, r.getDisplayMetrics());
     }
 
+    public static void setPadding(View view, int left, int top, int right, int bottom) {
+        view.setPadding((int)dpToPixel(left), (int)dpToPixel(top), (int)dpToPixel(right), (int)dpToPixel(bottom));
+    }
+
     public static void setMargin(View view, int left, int top, int right, int bottom) {
         if (view.getLayoutParams() instanceof ViewGroup.MarginLayoutParams) {
             ViewGroup.MarginLayoutParams p = (ViewGroup.MarginLayoutParams) view.getLayoutParams();

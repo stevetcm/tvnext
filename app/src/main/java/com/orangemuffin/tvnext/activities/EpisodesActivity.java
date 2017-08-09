@@ -59,11 +59,11 @@ public class EpisodesActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (Integer.parseInt(overflow_kite.getTag().toString()) == 1) {
-                    overflow_kite.setBackgroundResource(R.drawable.ic_kite_white_on);
+                    overflow_kite.setImageResource(R.drawable.ic_kite_white_on);
                     overflow_kite.setTag(2);
                     adapter.selectSeason();
                 } else {
-                    overflow_kite.setBackgroundResource(R.drawable.ic_kite_white_off);
+                    overflow_kite.setImageResource(R.drawable.ic_kite_white_off);
                     overflow_kite.setTag(1);
                     adapter.unselectSeason();
                 }
@@ -106,7 +106,7 @@ public class EpisodesActivity extends AppCompatActivity {
             episodes_list.setVisibility(View.VISIBLE);
 
             if (adapter.checkSeason()) {
-                overflow_kite.setBackgroundResource(R.drawable.ic_kite_white_on);
+                overflow_kite.setImageResource(R.drawable.ic_kite_white_on);
                 overflow_kite.setTag(2);
             }
         }
@@ -114,10 +114,10 @@ public class EpisodesActivity extends AppCompatActivity {
 
     public void toggleSeason(boolean checkSeason) {
         if (checkSeason) {
-            overflow_kite.setBackgroundResource(R.drawable.ic_kite_white_on);
+            overflow_kite.setImageResource(R.drawable.ic_kite_white_on);
             overflow_kite.setTag(2);
         } else {
-            overflow_kite.setBackgroundResource(R.drawable.ic_kite_white_off);
+            overflow_kite.setImageResource(R.drawable.ic_kite_white_off);
             overflow_kite.setTag(1);
         }
     }

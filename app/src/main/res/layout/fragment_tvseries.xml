@@ -33,7 +33,8 @@
             android:layout_marginTop="175dp"
             android:gravity="center"
             android:textColor="@color/white"
-            android:text="Click on the plus button below to begin adding your favorite TV series!"/>
+            android:visibility="gone"
+            android:text="@string/no_tvseries"/>
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/card_recycler_view"

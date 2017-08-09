@@ -94,7 +94,11 @@ public class FragmentTvSeries extends Fragment {
         @Override
         protected List<TvSeries> doInBackground(Void... voids) {
             try {
-                data.addAll(LocalDataUtil.getTvSeriesLocal(getContext()));
+                List<TvSeries> seriesList = LocalDataUtil.getTvSeriesLocal(getContext());
+                for (TvSeries tvSeries : seriesList) {
+                    tvSeries.setEpisodesLeft();
+                }
+                data.addAll(seriesList);
             } catch (Exception e) { }
             return data;
         }
@@ -166,6 +170,7 @@ public class FragmentTvSeries extends Fragment {
                 in.close();
             } catch (Exception e) { }
 
+            result.setEpisodesLeft();
             return result;
         }
 

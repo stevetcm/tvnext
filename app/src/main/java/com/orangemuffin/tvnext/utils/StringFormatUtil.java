@@ -21,17 +21,15 @@ public class StringFormatUtil {
         }
     }
 
-    public static String prefixNumber(int number) {
-        if (number < 10) {
+    public static String prefixNumber(String number) {
+        if (Integer.valueOf(number) < 10) {
             return "0" + number;
         } else {
-            return String.valueOf(number);
+            return number;
         }
     }
 
     public static String numDisplay(String seasonNum, String episodeNum) {
-        String s = prefixNumber(Integer.parseInt(seasonNum));
-        String e = prefixNumber(Integer.parseInt(episodeNum));
-        return "S" + s + "E" + e;
+        return "S" + prefixNumber(seasonNum) + "E" + prefixNumber(episodeNum);
     }
 }

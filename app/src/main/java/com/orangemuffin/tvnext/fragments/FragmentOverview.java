@@ -92,7 +92,7 @@ public class FragmentOverview extends Fragment {
                     overview.setBackgrounds(result.getBackgrounds());
                 } else if (i == 1) {
                     overview.setHeader("Next Unaired Episode");
-                    overview.setText(result.getNearestEpisode());
+                    overview.setText(result.getNearestString());
                 } else if (i == 2) {
                     overview.setHeader("Description");
                     overview.setText(result.getOverview());

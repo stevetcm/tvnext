@@ -79,9 +79,9 @@ public class TvSeriesDiscoverAdapter extends RecyclerView.Adapter<TvSeriesDiscov
         final TvSeries tvSeries = data.get(position);
 
         if (tvshow_map.containsValue(tvSeries.getId())) {
-            holder.overflow_add.setBackgroundResource(R.drawable.ic_check_green);
+            holder.overflow_add.setImageResource(R.drawable.ic_check_green);
         } else {
-            holder.overflow_add.setBackgroundResource(R.drawable.ic_add_white);
+            holder.overflow_add.setImageResource(R.drawable.ic_add_white);
         }
 
         holder.title.setText(tvSeries.getName());
