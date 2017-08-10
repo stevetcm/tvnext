@@ -21,7 +21,7 @@ public class AlarmUtil {
         //create pending intent with a specific mode id to be executed
         Intent intent = new Intent(context, AlarmReceiver.class);
         intent.putExtra("MODE_ID", mode);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, mode, intent, 0);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, mode, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
@@ -42,7 +42,7 @@ public class AlarmUtil {
         //create pending intent with a specific mode id to be executed
         Intent intent = new Intent(context, AlarmReceiver.class);
         intent.putExtra("MODE_ID", mode);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, mode, intent, 0);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, mode, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
     }
@@ -50,8 +50,9 @@ public class AlarmUtil {
     public static void cancelAlarm(Context context, int mode) {
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(context, AlarmReceiver.class);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, mode, intent, 0);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, mode, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         alarmManager.cancel(pendingIntent);
+        pendingIntent.cancel();
     }
 
     public static boolean isAlarmUp(Context context, int mode) {

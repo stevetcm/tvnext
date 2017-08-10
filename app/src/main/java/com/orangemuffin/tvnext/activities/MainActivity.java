@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -100,9 +101,9 @@ public class MainActivity extends AppCompatActivity {
             public void onDrawerClosed(View drawerView) {
                 super.onDrawerClosed(drawerView);
                 if (clickedItem == R.id.settings) {
-                    //Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
-                    //startActivityForResult(intent, 1002);
-                    //overridePendingTransition(R.anim.slide_left, R.anim.anim_stay);
+                    Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
+                    startActivityForResult(intent, 1002);
+                    overridePendingTransition(R.anim.slide_left, R.anim.anim_stay);
                 } else {
                     switchTabManager(clickedItem);
                 }
@@ -132,24 +133,22 @@ public class MainActivity extends AppCompatActivity {
         editor.putInt("PHONE_RES", width);
         editor.apply();
 
-        this.startService(new Intent(getApplicationContext(), UpdateService.class));
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
         //setting up alarm for notification services
-        if (!AlarmUtil.isAlarmUp(getApplicationContext(), 11008)) {
-            Calendar calendar = AlarmUtil.setupCalendar(9, 15);
-            AlarmUtil.setExactAlarm(getApplicationContext(), calendar, 11008);
-            Toast.makeText(getApplicationContext(), "Starting Notification Alarm", Toast.LENGTH_SHORT).show();
-        } else {
-            Toast.makeText(getApplicationContext(), "Notification Alarm Already Up", Toast.LENGTH_SHORT).show();
+        if (sharedPreferences.getBoolean("notifications", true)) {
+            if (!AlarmUtil.isAlarmUp(getApplicationContext(), 11008)) {
+                Calendar calendar = AlarmUtil.setupCalendar(9, 15);
+                AlarmUtil.setExactAlarm(getApplicationContext(), calendar, 11008);
+            }
         }
 
         //setting up alarm for update services
-        if (!AlarmUtil.isAlarmUp(getApplicationContext(), 11010)) {
-            Calendar calendar = AlarmUtil.setupCalendar(6, 15);
-            AlarmUtil.setRepeatingAlarm(getApplicationContext(), calendar, 11010);
-            Toast.makeText(getApplicationContext(), "Starting Update Alarm", Toast.LENGTH_SHORT).show();
-        } else {
-            Toast.makeText(getApplicationContext(), "Update Alarm Already Up", Toast.LENGTH_SHORT).show();
+        if (sharedPreferences.getBoolean("auto_update", true)) {
+            if (!AlarmUtil.isAlarmUp(getApplicationContext(), 11010)) {
+                Calendar calendar = AlarmUtil.setupCalendar(6, 15);
+                AlarmUtil.setRepeatingAlarm(getApplicationContext(), calendar, 11010);
+            }
         }
     }
 
@@ -187,14 +186,6 @@ public class MainActivity extends AppCompatActivity {
             mFragmentTransaction.add(R.id.containerView, new DiscoverManager()).commit();
             currentItem = R.id.discover;
             setNavBarItem(2);
-        } else if (clicked == R.id.trakt && currentItem != R.id.trakt) {
-            //editText.setVisibility(View.GONE);
-            //toolbar.setTitle("Trakt.tv");
-            //mFragmentTransaction = mFragmentManager.beginTransaction();
-            //mFragmentTransaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
-            //mFragmentTransaction.add(R.id.containerView, new TraktManager()).commit();
-            //currentItem = R.id.trakt;
-            //setNavBarItem(3);
         }
     }
 
@@ -216,8 +207,6 @@ public class MainActivity extends AppCompatActivity {
                     setNavBarItem(1);
                 } else if (currentItem == R.id.discover) {
                     setNavBarItem(2);
-                } else if (currentItem == R.id.trakt) {
-                    setNavBarItem(3);
                 }
             }
         }
@@ -282,7 +271,10 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         switch (id) {
-            case R.id.action_settings:
+            case R.id.action_update:
+                //manual update of all tv series data
+                this.startService(new Intent(getApplicationContext(), UpdateService.class));
+                progressBar.setVisibility(View.VISIBLE);
                 return true;
         }
 

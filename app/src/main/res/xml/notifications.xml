@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory
+        android:title="Notifications Preferences">
+
+        <SwitchPreference
+            android:title="Notifications"
+            android:summary="Notify about new episodes airing"
+            android:defaultValue="true"
+            android:key="notifications" />
+
+        <CheckBoxPreference
+            android:title="Vibrate"
+            android:defaultValue="true"
+            android:key="checkBoxVibrate" />
+
+        <RingtonePreference
+            android:title="Sound"
+            android:showDefault="true"
+            android:defaultValue="content://settings/system/notification_sound"
+            android:ringtoneType="notification"
+            android:key="notificationSound" />
+
+        <CheckBoxPreference
+            android:title="LED Light"
+            android:defaultValue="true"
+            android:key="checkBoxLED" />
+
+        <Preference
+            android:title="Test Notification"
+            android:summary="Display notification for today"
+            android:key="notification_test" />
+    </PreferenceCategory>
+
+</PreferenceScreen>

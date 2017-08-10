@@ -6,9 +6,12 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Build;
+import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
 
 import com.orangemuffin.tvnext.R;
@@ -22,41 +25,6 @@ import java.util.List;
 
 /* Created by OrangeMuffin on 8/7/2017 */
 public class NotificationUtil {
-
-    public static void notificationTest(Context context) {
-        String pattern = "yyyy-MM-dd HH:mm:ss";
-        SimpleDateFormat dateFormat = new SimpleDateFormat(pattern);
-        Calendar calendar = Calendar.getInstance();
-        String today = dateFormat.format(calendar.getTime());
-
-        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context)
-                .setSmallIcon(R.drawable.ic_transparent_white)
-                .setContentTitle(context.getResources().getString(R.string.app_name))
-                .setContentText(today)
-                .setTicker("Notification Test")
-                .setAutoCancel(true)
-                .setDefaults(Notification.DEFAULT_SOUND)
-                .setVibrate(new long[]{0l}); //endless effort to disable vibrate;
-
-        long[] patternSound = {0, 300, 0};
-        mBuilder.setVibrate(patternSound);
-
-        mBuilder.setLights(Color.BLUE, 700, 1500);
-
-        //enabling heads-up notification
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-            mBuilder.setPriority(Notification.PRIORITY_HIGH);
-        }
-
-        //set up how to deal with on click operation
-        Intent mainIntent = new Intent(context, MainActivity.class);
-        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, mainIntent, 0);
-        mBuilder.setContentIntent(pendingIntent);
-
-        //build and trigger notification
-        NotificationManager manager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-        manager.notify(11008, mBuilder.build());
-    }
 
     public static void createAiringNotification(Context context, List<Episode> episodeList) {
         Episode episode = episodeList.get(0);
@@ -85,7 +53,7 @@ public class NotificationUtil {
                     .setDefaults(Notification.DEFAULT_SOUND)
                     .setVibrate(new long[]{0l}); //endless effort to disable vibrate;
         } else {
-            String title = String.valueOf(episodeList.size()) + "New Episodes";
+            String title = String.valueOf(episodeList.size()) + " New Episodes";
             String text = seriesName + " - " + StringFormatUtil.numDisplay(seasonNum, episodeNum);
 
             for (int i = 1; i < episodeList.size(); i++) {
@@ -97,16 +65,25 @@ public class NotificationUtil {
                     .setContentTitle(title)
                     .setContentText("Click to show upcoming episodes")
                     .setStyle(new NotificationCompat.BigTextStyle().bigText(text))
-                    .setTicker(title)
+                    .setTicker(title + " Airing Today")
                     .setAutoCancel(true)
                     .setDefaults(Notification.DEFAULT_SOUND)
                     .setVibrate(new long[]{0l}); //endless effort to disable vibrate;
         }
 
-        long[] pattern = {0, 300, 0};
-        mBuilder.setVibrate(pattern);
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
 
-        mBuilder.setLights(Color.BLUE, 700, 1500);
+        String soundUri = sharedPreferences.getString("notificationSound", "content://settings/system/notification_sound");
+        if (soundUri.length() != 0) {
+            mBuilder.setSound(Uri.parse(soundUri));
+        }
+        if (sharedPreferences.getBoolean("checkBoxVibrate", true)) {
+            long[] pattern = {0, 300, 0};
+            mBuilder.setVibrate(pattern);
+        }
+        if (sharedPreferences.getBoolean("checkBoxLED", true)) {
+            mBuilder.setLights(Color.BLUE, 700, 1500);
+        }
 
         //enabling heads-up notification
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {

@@ -20,6 +20,8 @@ public class TvSeries implements Serializable {
     private String airDay;
     private String genre;
     private String lastUpdated;
+    private boolean tvdbReady = true;
+    private int episodesLeft = 0;
 
     private List<Season> seasons = new ArrayList<>();
     private List<String> backgrounds = new ArrayList<>();
@@ -28,7 +30,6 @@ public class TvSeries implements Serializable {
     private String TraktRating;
 
     private List<Integer> watchedIndex = new ArrayList<>();
-    private int episodesLeft = 0;
 
     public String getName() {
         return name;
@@ -142,6 +143,14 @@ public class TvSeries implements Serializable {
         TraktRating = traktRating;
     }
 
+    public boolean isTvdbReady() {
+        return tvdbReady;
+    }
+
+    public void setTvdbReady(boolean tvdbReady) {
+        this.tvdbReady = tvdbReady;
+    }
+
     public void setEpisodesLeft() {
         for (int i = seasons.size() - 1; i >= 0; i--) {
             Season season = seasons.get(i);
@@ -162,19 +171,6 @@ public class TvSeries implements Serializable {
         return episodesLeft;
     }
 
-    public String getNearestString() {
-        Episode episode = getNearestEpisode();
-        if (episode != null) {
-            String episodeString = StringFormatUtil.numDisplay(episode.getSeasonNum(), episode.getEpisodeNum());
-            episodeString = episodeString + " - " + episode.getName() + "\n";
-
-            return episodeString + "Airs: " + StringFormatUtil.getDueDate(episode.getDue()) +
-                    ", " + DateAndTimeUtil.convertDate("EEE, dd MMM yyyy", episode.getAirdate());
-        }
-
-        return "No Upcoming Episode";
-    }
-
     public Episode getNearestEpisode() {
         for (int i = seasons.size()-1; i >= 0; i--) {
             Season season = seasons.get(i);
@@ -190,6 +186,19 @@ public class TvSeries implements Serializable {
         }
 
         return null;
+    }
+
+    public String getNearestString() {
+        Episode episode = getNearestEpisode();
+        if (episode != null) {
+            String episodeString = StringFormatUtil.numDisplay(episode.getSeasonNum(), episode.getEpisodeNum());
+            episodeString = episodeString + " - " + episode.getName() + "\n";
+
+            return episodeString + "Airs: " + StringFormatUtil.getDueDate(episode.getDue()) +
+                    ", " + DateAndTimeUtil.convertDate("EEE, dd MMM yyyy", episode.getAirdate());
+        }
+
+        return "No Upcoming Episode";
     }
 
     public Episode getCurrentEpisode(int offset) {

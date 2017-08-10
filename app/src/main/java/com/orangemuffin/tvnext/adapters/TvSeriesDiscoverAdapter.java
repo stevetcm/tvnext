@@ -78,10 +78,15 @@ public class TvSeriesDiscoverAdapter extends RecyclerView.Adapter<TvSeriesDiscov
     public void onBindViewHolder(TvSeriesDiscoverAdapter.ViewHolder holder, int position) {
         final TvSeries tvSeries = data.get(position);
 
-        if (tvshow_map.containsValue(tvSeries.getId())) {
-            holder.overflow_add.setImageResource(R.drawable.ic_check_green);
+        if (!tvSeries.isTvdbReady()) {
+            holder.overflow_add.setVisibility(View.GONE);
         } else {
-            holder.overflow_add.setImageResource(R.drawable.ic_add_white);
+            holder.overflow_add.setVisibility(View.VISIBLE);
+            if (tvshow_map.containsValue(tvSeries.getId())) {
+                holder.overflow_add.setImageResource(R.drawable.ic_check_green);
+            } else {
+                holder.overflow_add.setImageResource(R.drawable.ic_add_white);
+            }
         }
 
         holder.title.setText(tvSeries.getName());

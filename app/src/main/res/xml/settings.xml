@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory
+        android:title="Basic Settings">
+
+        <Preference
+            android:title="Notifications"
+            android:summary="Notifications Preferences"
+            android:key="notification_screen">
+        </Preference>
+
+        <SwitchPreference
+            android:title="Auto Update"
+            android:summary="Automatically update all data"
+            android:defaultValue="true"
+            android:key="auto_update" />
+
+        <CheckBoxPreference
+            android:title="Show Images via WiFi only"
+            android:summary="Do not show images over mobile or metered networks"
+            android:defaultValue="false"
+            android:key="checkBoxWIFI"
+            android:enabled="false" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="Other">
+
+        <Preference
+            android:title="About"
+            android:summary="v1.0.0"
+            android:key="about_screen">
+        </Preference>
+    </PreferenceCategory>
+
+</PreferenceScreen>

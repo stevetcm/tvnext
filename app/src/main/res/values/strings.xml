@@ -3,7 +3,8 @@
 
     <string name="app_name">Tv Next</string>
     <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
+    <string name="action_update">Update All</string>
 
+    <string name="no_tvseries">Click on the plus button below to begin adding your favorite TV series!</string>
     <string name="img_src">Images are from thetvdb.com under CC BY-NC 4.0</string>
 </resources>
