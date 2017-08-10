@@ -37,7 +37,7 @@
         android:layout_gravity="center_horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="EXPLORE"/>
+        android:text="@string/explore_btn"/>
 
     <!-- not displaying first item fix -->
     <android.support.v7.widget.RecyclerView

@@ -10,6 +10,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import com.orangemuffin.tvnext.R;
+import com.orangemuffin.tvnext.fragments.FragmentAbout;
 import com.orangemuffin.tvnext.fragments.FragmentNotifications;
 import com.orangemuffin.tvnext.fragments.FragmentSettings;
 
@@ -46,6 +47,9 @@ public class SettingsActivity extends AppCompatActivity {
         if (key.equals("notification_screen")) {
             mFragmentTransaction = mFragmentManager.beginTransaction();
             mFragmentTransaction.replace(R.id.containerView, new FragmentNotifications()).commit();
+        } else if (key.equals("about_screen")) {
+            mFragmentTransaction = mFragmentManager.beginTransaction();
+            mFragmentTransaction.replace(R.id.containerView, new FragmentAbout()).commit();
         }
         originalFragment = false;
     }

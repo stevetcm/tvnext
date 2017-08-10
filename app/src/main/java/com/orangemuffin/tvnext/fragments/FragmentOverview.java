@@ -1,9 +1,15 @@
 package com.orangemuffin.tvnext.fragments;
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.ContextWrapper;
+import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,6 +39,11 @@ public class FragmentOverview extends Fragment {
     private LinearLayout linlaHeaderProgress;
     private String seriesId, viewing;
     private Context context;
+    private SharedPreferences sharedPreferences;
+
+    private boolean isWifi;
+    private boolean isMobile;
+    private boolean isMetered;
 
     //Required empty public constructor
     public FragmentOverview() { }
@@ -47,6 +58,13 @@ public class FragmentOverview extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_overview, container, false);
 
         context = rootView.getContext();
+
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+
+        //check connection type in case of restriction
+        if (sharedPreferences.getBoolean("checkBoxWIFI", false)) {
+            checkConnectionType();
+        }
 
         linlaHeaderProgress = (LinearLayout) rootView.findViewById(R.id.linlaHeaderProgress);
 
@@ -89,7 +107,16 @@ public class FragmentOverview extends Fragment {
                 overview.setId(i); //set header id
                 if (i == 0) {
                     overview.setHeader(result.getName());
-                    overview.setBackgrounds(result.getBackgrounds());
+
+                    if (sharedPreferences.getBoolean("checkBoxWIFI", false)) {
+                        if (isMobile || isMetered) {
+                            overview.setBackgrounds(new ArrayList<String>());
+                        } else {
+                            overview.setBackgrounds(result.getBackgrounds());
+                        }
+                    } else {
+                        overview.setBackgrounds(result.getBackgrounds());
+                    }
                 } else if (i == 1) {
                     overview.setHeader("Next Unaired Episode");
                     overview.setText(result.getNearestString());
@@ -127,6 +154,17 @@ public class FragmentOverview extends Fragment {
             stickyList.setAdapter(adapter);
             linlaHeaderProgress.setVisibility(View.GONE);
             stickyList.setVisibility(View.VISIBLE);
+        }
+    }
+
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
+    private void checkConnectionType() {
+        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        if (activeNetwork != null && activeNetwork.isConnectedOrConnecting()) {
+            isWifi = activeNetwork.getType() == ConnectivityManager.TYPE_WIFI;
+            isMobile = activeNetwork.getType() == ConnectivityManager.TYPE_MOBILE;
+            isMetered = isWifi && cm.isActiveNetworkMetered();
         }
     }
 }

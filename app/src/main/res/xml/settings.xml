@@ -19,10 +19,9 @@
 
         <CheckBoxPreference
             android:title="Show Images via WiFi only"
-            android:summary="Do not show images over mobile or metered networks"
+            android:summary="Do not fetch images over mobile or metered networks"
             android:defaultValue="false"
-            android:key="checkBoxWIFI"
-            android:enabled="false" />
+            android:key="checkBoxWIFI" />
     </PreferenceCategory>
 
     <PreferenceCategory

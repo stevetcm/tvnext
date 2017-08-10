@@ -23,7 +23,16 @@ public class FragmentSettings extends PreferenceFragment implements SharedPrefer
         notifScreen.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
-                ((SettingsActivity) getActivity()).switchFragment(preference.getKey());
+                ((SettingsActivity) getActivity()).switchFragment("notification_screen");
+                return false;
+            }
+        });
+
+        Preference aboutScreen = findPreference("about_screen");
+        aboutScreen.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+                ((SettingsActivity) getActivity()).switchFragment("about_screen");
                 return false;
             }
         });

@@ -5,6 +5,24 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_update">Update All</string>
 
+    <string name="search_hint">Search for (…, &#8230;)</string>
+    <string name="explore_btn">EXPLORE</string>
+
+    <string name="library">Library</string>
+    <string name="schedule">Schedule</string>
+    <string name="discover">Discover</string>
+    <string name="settings">Settings</string>
+
+    <string name="watch_season">Mark All as Watched</string>
+    <string name="unwatch_season">Mark All as Unwatched</string>
+
+    <string name="watch_episode">Watch This Episode</string>
+    <string name="unwatch_episode">Unwatch Last Episode</string>
+
+    <string name="remove_entry">Remove This Entry</string>
+
+    <string name="no_show_today">None of your shows are airing today</string>
+
     <string name="no_tvseries">Click on the plus button below to begin adding your favorite TV series!</string>
     <string name="img_src">Images are from thetvdb.com under CC BY-NC 4.0</string>
 </resources>

@@ -3,13 +3,13 @@
     <item
         android:id="@+id/watch"
         android:orderInCategory="101"
-        android:title="Watch This Episode" />
+        android:title="@string/watch_episode" />
     <item
         android:id="@+id/unwatch"
         android:orderInCategory="102"
-        android:title="Unwatch Last Episode" />
+        android:title="@string/unwatch_episode" />
     <item
         android:id="@+id/remove"
         android:orderInCategory="103"
-        android:title="Remove This Entry" />
+        android:title="@string/remove_entry" />
 </menu>

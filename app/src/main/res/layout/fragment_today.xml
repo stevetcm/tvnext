@@ -25,7 +25,7 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:textColor="@color/textColorSecondary"
-        android:text="None of your shows are airing today"
+        android:text="@string/no_show_today"
         android:gravity="center" />
 
     <!-- padding at the end when not scrolling -->

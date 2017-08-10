@@ -1,5 +1,6 @@
 package com.orangemuffin.tvnext.adapters;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -8,7 +9,11 @@ import android.content.ContextWrapper;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
+import android.os.Build;
+import android.preference.PreferenceManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.view.LayoutInflater;
@@ -48,6 +53,12 @@ public class TvSeriesDiscoverAdapter extends RecyclerView.Adapter<TvSeriesDiscov
 
     private Map<String, String> tvshow_map;
 
+    private boolean isWifi;
+    private boolean isMobile;
+    private boolean isMetered;
+
+    private SharedPreferences sharedPreferences;
+
     public TvSeriesDiscoverAdapter(Context context, List<TvSeries> data, Activity activity) {
         this.context = context;
         this.data = data;
@@ -55,6 +66,13 @@ public class TvSeriesDiscoverAdapter extends RecyclerView.Adapter<TvSeriesDiscov
 
         //retrieve current state of user map
         tvshow_map = LocalDataUtil.getTvSeriesMap(context);
+
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+
+        //check connection type in case of restriction
+        if (sharedPreferences.getBoolean("checkBoxWIFI", false)) {
+            checkConnectionType();
+        }
     }
 
     public void add(List<TvSeries> items) {
@@ -74,6 +92,7 @@ public class TvSeriesDiscoverAdapter extends RecyclerView.Adapter<TvSeriesDiscov
         return new ViewHolder(view);
     }
 
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     @Override
     public void onBindViewHolder(TvSeriesDiscoverAdapter.ViewHolder holder, int position) {
         final TvSeries tvSeries = data.get(position);
@@ -94,10 +113,34 @@ public class TvSeriesDiscoverAdapter extends RecyclerView.Adapter<TvSeriesDiscov
 
         String urlBase = "http://thetvdb.com/banners/";
         String urlBanner = tvSeries.getBanner();
-        if (urlBanner != null && !urlBanner.equals(urlBase)) {
-            Picasso.with(context).load(urlBanner).noFade().fit().centerCrop().into(holder.banner);
+
+        if (sharedPreferences.getBoolean("checkBoxWIFI", false)) {
+            if (isMobile || isMetered) {
+                holder.banner.setVisibility(View.GONE);
+            } else {
+                if (urlBanner != null && !urlBanner.equals(urlBase)) {
+                    Picasso.with(context).load(urlBanner).noFade().fit().centerCrop().into(holder.banner);
+                } else {
+                    Picasso.with(context).load(R.drawable.placeholder_banner).noFade().fit().centerCrop().into(holder.banner);
+                }
+            }
         } else {
-            Picasso.with(context).load(R.drawable.placeholder_banner).noFade().fit().centerCrop().into(holder.banner);
+            if (urlBanner != null && !urlBanner.equals(urlBase)) {
+                Picasso.with(context).load(urlBanner).noFade().fit().centerCrop().into(holder.banner);
+            } else {
+                Picasso.with(context).load(R.drawable.placeholder_banner).noFade().fit().centerCrop().into(holder.banner);
+            }
+        }
+    }
+
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
+    private void checkConnectionType() {
+        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        if (activeNetwork != null && activeNetwork.isConnectedOrConnecting()) {
+            isWifi = activeNetwork.getType() == ConnectivityManager.TYPE_WIFI;
+            isMobile = activeNetwork.getType() == ConnectivityManager.TYPE_MOBILE;
+            isMetered = isWifi && cm.isActiveNetworkMetered();
         }
     }
 
@@ -130,7 +173,7 @@ public class TvSeriesDiscoverAdapter extends RecyclerView.Adapter<TvSeriesDiscov
             int width = sp_data.getInt("PHONE_RES", 1080);
             banner.getLayoutParams().height = (int) (((width - 2 * (MeasurementUtil.dpToPixel(4))) / 758) * 140);
 
-            banner.setOnClickListener(new View.OnClickListener() {
+            view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     final int position = getAdapterPosition();

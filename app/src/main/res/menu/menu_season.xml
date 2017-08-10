@@ -3,9 +3,9 @@
     <item
         android:id="@+id/watch"
         android:orderInCategory="101"
-        android:title="Mark All as Watched" />
+        android:title="@string/watch_season" />
     <item
         android:id="@+id/unwatch"
         android:orderInCategory="102"
-        android:title="Mark All as Unwatched" />
+        android:title="@string/unwatch_season" />
 </menu>
