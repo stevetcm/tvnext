@@ -9,7 +9,7 @@ import retrofit2.Response;
 
 /* Created by OrangeMuffin on 7/28/2017 */
 public class TheTvdbServiceBase {
-    protected static final String API_KEY = "TVDB_API_KEY_HERE";
+    protected static final String API_KEY = "THETVDB_API_KEY_HERE";
 
     private static final TheTvdb theTvdb = new TheTvdb(API_KEY);
 

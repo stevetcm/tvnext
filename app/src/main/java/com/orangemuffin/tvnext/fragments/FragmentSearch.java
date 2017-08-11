@@ -1,5 +1,6 @@
 package com.orangemuffin.tvnext.fragments;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -79,10 +80,15 @@ public class FragmentSearch extends Fragment {
         footer_credit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String url = "https://fanart.tv/";
-                Intent web = new Intent(Intent.ACTION_VIEW);
-                web.setData(Uri.parse(url));
-                startActivity(web);
+                String text = "This app uses data and images by TheTVDB licensed under CC BY-NC 4.0\n\n" +
+                        "(https://thetvdb.com/?tab=tos)\n" +
+                        "(http://creativecommons.org/licenses/by-nc/4.0).";
+
+                AlertDialog.Builder dialog = new AlertDialog.Builder(getContext());
+                dialog.setTitle("TheTVDB.com");
+                dialog.setMessage(text);
+                dialog.setPositiveButton("Close", null);
+                dialog.show();
             }
         });
 

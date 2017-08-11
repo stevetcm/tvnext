@@ -28,6 +28,15 @@ public class FragmentSettings extends PreferenceFragment implements SharedPrefer
             }
         });
 
+        Preference creditsScreen = findPreference("credits_screen");
+        creditsScreen.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+                ((SettingsActivity) getActivity()).switchFragment("credits_screen");
+                return false;
+            }
+        });
+
         Preference aboutScreen = findPreference("about_screen");
         aboutScreen.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override

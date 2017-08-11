@@ -100,7 +100,7 @@ public class TraktSeriesService extends TraktServiceBase {
                     try {
                         tvSeries = TheTvdbSeriesService.getSeriesDetails(ids.get(i), "en");
                     } catch (Exception e) {
-                        //tvSeries.setTvdbready(false);
+                        tvSeries.setTvdbReady(false);
                         tvSeries.setId(ids.get(i));
                         tvSeries.setName(names.get(i));
                         tvSeries.setNetwork(networks.get(i));

@@ -127,7 +127,7 @@ public class FragmentTvSeries extends Fragment {
             String seriesId = intent.getStringExtra("seriesId");
             String seriesName = intent.getStringExtra("seriesName");
             new ProcessTvSeries().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, seriesId);
-            Toast.makeText(getContext(), seriesName + " updated", Toast.LENGTH_LONG).show();
+            //Toast.makeText(getContext(), seriesName + " updated", Toast.LENGTH_LONG).show();
         }
     };
 
